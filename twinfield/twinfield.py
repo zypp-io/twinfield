@@ -35,8 +35,9 @@ def query(
     import_all(run_params)
 
     df = import_files(run_params)
-    # clean up directory where files are stored
-    remove_and_create_dir(run_params.pickledir)
+    if not rerun:
+        # clean up directory where files are stored
+        remove_and_create_dir(run_params.pickledir)
 
     return df
 
