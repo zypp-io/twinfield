@@ -12,3 +12,6 @@ MODULES = {
     "030_1": "mutaties",
     "040_1": "consolidatie",
 }
+
+# time out for requests set on 30 min.
+TIME_OUT = 2400

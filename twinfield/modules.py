@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 from . import templates
 from twinfield.functions import parse_session_response, parse_response, get_metadata
+from twinfield import TIME_OUT
 
 
 def read_offices(param) -> pd.DataFrame:
@@ -21,7 +22,7 @@ def read_offices(param) -> pd.DataFrame:
 
     url = f"https://{param.cluster}.twinfield.com/webservices/processxml.asmx?wsdl"
     body = templates.import_xml("xml_templates/template_list_offices.xml").format(param.session_id)
-    response = requests.post(url=url, headers=param.header, data=body)
+    response = requests.post(url=url, headers=param.header, data=body, timeout=TIME_OUT)
 
     data = parse_session_response(response, param)
 
@@ -65,8 +66,9 @@ def read_module(param, periode, module, jaar=None) -> pd.DataFrame:
             param.session_id, jaar, periode["from"], jaar, periode["to"]
         )
     else:
+        body = None
         logging.info("Let op module is nog niet ontwikkeld")
-    response = requests.post(url=url, headers=param.header, data=body)
+    response = requests.post(url=url, headers=param.header, data=body, timeout=TIME_OUT)
 
     data = parse_response(response, param)
     logging.debug(f"{len(data)} records in {datetime.now() - start}")

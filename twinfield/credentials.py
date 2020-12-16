@@ -3,6 +3,7 @@ from xml.etree import ElementTree as ET
 import os
 import requests
 from . import templates
+from twinfield import TIME_OUT
 
 
 def twinfield_login():
@@ -112,7 +113,7 @@ class SessionParameters:
         session id and cluster
         """
 
-        response = requests.post(url=url, headers=header, data=body)
+        response = requests.post(url=url, headers=header, data=body, timeout=TIME_OUT)
 
         if response:
             session_id = SessionParameters.parse_session_id(

@@ -8,7 +8,7 @@ import requests
 from .credentials import twinfield_login
 from .templates import soap_metadata, import_xml
 import timeit
-from twinfield import MODULES
+from twinfield import MODULES, TIME_OUT
 
 
 def import_files(run_params) -> pd.DataFrame:
@@ -85,7 +85,7 @@ def get_metadata(module, login) -> pd.DataFrame:
     url = f"https://{login.cluster}.twinfield.com/webservices/processxml.asmx?wsdl"
     body = soap_metadata(login, module=module)
 
-    response = requests.post(url=url, headers=login.header, data=body)
+    response = requests.post(url=url, headers=login.header, data=body, timeout=TIME_OUT)
     root = ET.fromstring(response.text)
     body = root.find("env:Body", login.ns)
 
@@ -219,7 +219,7 @@ def select_office(officecode, param) -> None:
         url = f"https://{param.cluster}.twinfield.com/webservices/session.asmx?wsdl"
         path_xml = os.path.join("xml_templates", "template_select_office.xml")
         body = import_xml(path_xml).format(param.session_id, officecode)
-        response = requests.post(url=url, headers=param.header, data=body)
+        response = requests.post(url=url, headers=param.header, data=body, timeout=TIME_OUT)
 
         if response.status_code == 200 or counter == 10:
             run = False
