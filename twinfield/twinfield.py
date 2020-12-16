@@ -26,7 +26,7 @@ def query(
     df: pd.DataFrame
         DataFrame containing for requested module, year and all offices in scope.
     """
-    
+
     run_params = RunParameters(jaar=jaar, module=module, offices=offices, rerun=rerun)
 
     logging.info(
