@@ -134,7 +134,11 @@ class Browse(Base):
         df: pd.DataFrame
             dataframe of records for the selected module
         """
-        root = Et.fromstring(response.text)
+        try:
+            root = Et.fromstring(response.text)
+        except Et.ParseError as e:
+            raise Exception(f"Internal Server Error Twinfield: {e}, text: {response.text}")
+
         body = root.find("env:Body", self.namespaces)
 
         if body.find("env:Fault", self.namespaces):

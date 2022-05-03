@@ -53,7 +53,7 @@ class Base(TwinfieldLogin):
                 if not response:
                     logging.info(f"No response, retrying in {sec_wait} seconds. Retry number: {retry}")
                     time.sleep(sec_wait)
-                    self.access_token = self.refresh_access_token()
+                    self.cluster = self.determine_cluster()
                     retry += 1
                 else:
                     success = True

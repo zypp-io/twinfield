@@ -41,7 +41,7 @@ class TwinfieldLogin:
             url=url, headers=self.header, data={"grant_type": "refresh_token", "refresh_token": self.refresh_token}
         )
         if not response:
-            raise LoginSessionError()
+            raise LoginSessionError("Could not refresh access token")
         json_data = json.loads(response.text)
         access_token = json_data.get("access_token")
 
