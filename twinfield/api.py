@@ -203,7 +203,6 @@ class TwinfieldApi(Base):
         for office in pbar:
             # self.select_office(office)
             for batch in batches:
-                # logging.debug(f"requesting {office} - {batch}...")
                 pbar.set_description(f"importing module {code} - {office} - {batch}...")
                 period_filters = {"fin.trs.head.yearperiod": ("between", batch)}
                 filters = {**filters, **period_filters}
