@@ -66,6 +66,14 @@ def test_module_030_1():
     module = "030_1"
     df = tw.query_by_year(code=module, year=2021)
     logging.info(f"imported {df.shape[0]} records and {df.shape[1]} columns for module {module}")
+    assert df["line.id"].is_unique
+
+
+def test_module_030_3():
+    module = "030_3"
+    df = tw.query_by_year(code=module, year=2021)
+    logging.info(f"imported {df.shape[0]} records and {df.shape[1]} columns for module {module}")
+    assert df["line.id"].is_unique
 
 
 def test_module_040_1():
@@ -80,9 +88,7 @@ def test_module_040_1():
 
 def test_module_with_filter():
     module = "100"
-    filters = {
-        "fin.trs.line.matchstatus": ["equal", {"from": "available"}],
-    }
+    filters = {"fin.trs.line.matchstatus": ["equal", {"from": "available"}]}
     df = tw.query_by_year(code=module, year=2021, filters=filters)
     logging.info(f"imported {df.shape[0]} records and {df.shape[1]} columns for module {module}")
 
@@ -91,6 +97,7 @@ def test_module_200():
     module = "200"
     df = tw.query_by_year(code=module, year=2021)
     logging.info(f"imported {df.shape[0]} records and {df.shape[1]} columns for module {module}")
+    assert df["line.id"].is_unique
 
 
 def test_login_expired():
@@ -99,6 +106,11 @@ def test_login_expired():
     # refresh the access token if  the token is invalid.
     tw.access_token = tw.refresh_access_token()
     assert fault_string == "Access denied. Token invalid."
+
+
+def test_delete_module():
+    df = tw.deleted(date_from="2022-03-03T00:00:00")
+    logging.info(f"imported {df.shape[0]} records and {df.shape[1]} columns for module deleted")
 
 
 if __name__ == "__main__":

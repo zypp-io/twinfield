@@ -159,6 +159,11 @@ class Browse(Base):
                 if "field" in col.attrib.keys():
                     name = col.attrib["field"]
                     info[name] = val
+                elif col.tag == "key":
+                    line_id = col[0].text
+                    for k in col[1:]:
+                        line_id = line_id + "_" + k.text
+                    info["line.id"] = line_id
 
             ttl_records.append(info)
 
