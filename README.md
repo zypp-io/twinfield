@@ -76,6 +76,4 @@ Level 3 is sufficient for working with the dataservices.
 
 ---
 
-For business inquiries concerning this package, contact us at:
-- melvin@zypp.io
-- erfan@zypp.io
+For business inquiries concerning this package, contact us at hello@zypp.io
