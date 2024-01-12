@@ -47,6 +47,13 @@ on the walktrough how to obtain the refresh token and set the app registration.
 "TWINFIELD_REFRESH_TOKEN"
 ```
 
+## optional environment variables
+TQDM accepts environmental variables to overwrite default settings `TQDM_*` i.e.,
+```shell
+TQDM_DISABLE=1
+TQDM_MININTERVAL=5
+```
+
 How to set environment variables?
 - [Windows](https://stackoverflow.com/questions/5898131/set-a-persistent-environment-variable-from-cmd-exe)
 - [macOS](https://apple.stackexchange.com/questions/106778/how-do-i-set-environment-variables-on-os-x)
